@@ -1,8 +1,14 @@
-import dotenv from 'dotenv';
-import express from 'express';
+// import dotenv from 'dotenv';
+// import express from 'express';
 
-import errorHandler from './middlewares/errorHandler.js';
-import Routes from './routes/router.js';
+// import errorHandler from './middlewares/errorHandler.js';
+// import Routes from './routes/router.js';
+
+const dotenv = require('dotenv');
+const express = require('express');
+
+const errorHandler = require('./middlewares/errorHandler');
+const Routes = require('./routes/router');
 
 dotenv.config();
 

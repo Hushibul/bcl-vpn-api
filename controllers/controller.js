@@ -1,4 +1,6 @@
-export const uploadFile = async (req, res, next) => {
+const { readAllFiles } = require('../utils/utils');
+
+const uploadFile = async (req, res, next) => {
   res.status(200).json({ success: true });
   try {
   } catch (err) {
@@ -6,4 +8,8 @@ export const uploadFile = async (req, res, next) => {
   }
 };
 
-export const deleteFile = () => {};
+const deleteFile = () => {
+  readAllFiles();
+};
+
+module.exports = { uploadFile, deleteFile };
