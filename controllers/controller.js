@@ -23,12 +23,7 @@ const deleteFile = async (req, res, next) => {
         for file in "$absolutePath"/*; do
           if [ -f "$file" ]; then
             #fileCreateTime=$(stat -f "%B" "$file")
-            # Get the creation time of the file using stat and parse the output
-            fileCreateTime=$(stat "$file" | grep -i 'Modify' | awk '{print $2" "$3}')
-        
-            # Convert the creation time to seconds since the Unix epoch
-            fileCreateTime=$(date -d "$fileCreateTime" +%s)
-        
+            fileCreateTime=$(stat -c %Y "$file")
             curTime=$(date +%s)
             timeDiffInMinutes=$(( (curTime - fileCreateTime) / 60 ))
             
