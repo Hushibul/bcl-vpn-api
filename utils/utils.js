@@ -1,8 +1,6 @@
-// import fs from fs;
-// import path from path;
-
 const fs = require('fs');
 const path = require('path');
+const upload = require('../middlewares/multer');
 
 const deleteTheFile = (url) => {
   const filePath = path.join(__dirname, url);
@@ -11,6 +9,22 @@ const deleteTheFile = (url) => {
 };
 
 const directoryPath = path.join(__dirname, '../uploads');
+
+const getTimeAndDate = (utfString) => {
+  let dateAndTime = utfString.toString().split('T')[0];
+  let time = dateAndTime.split(' ')[4];
+
+  // console.log('Date', dateAndTime);
+
+  let year = utfString.getFullYear();
+  let month = utfString.getMonth();
+  let day = utfString.getDate();
+  let hour = time.split(':')[0];
+  let minute = time.split(':')[1];
+  // console.log(month, year, day, hour, minute);
+
+  return { year, month, day, hour, minute };
+};
 
 const readAllFiles = () => {
   fs.readdir(directoryPath, (err, files) => {
@@ -23,14 +37,21 @@ const readAllFiles = () => {
         const fileTimeStamp = parseInt(fileTimeString);
         const fileCreationTime = new Date(fileTimeStamp);
 
-        if (Date.now() > fileTimeStamp) {
-          console.log('Hello');
-          // const filePath = path.join(directoryPath, file); // Full path to the file
-          // fs.unlinkSync(filePath);
-        } else {
-          console.log('BYe');
+        const fileCreationInfo = getTimeAndDate(fileCreationTime);
+        const deleteRequestInfo = getTimeAndDate(new Date(Date.now()));
+        // console.log('FileDate', deleteRequestInfo.minute);
+
+        if (
+          deleteRequestInfo.year >= fileCreationInfo.year &&
+          deleteRequestInfo.month >= fileCreationInfo.month &&
+          deleteRequestInfo.day >= fileCreationInfo.day &&
+          deleteRequestInfo.hour >= fileCreationInfo.hour &&
+          deleteRequestInfo.minute - fileCreationInfo.minute >= 5
+        ) {
+          console.log('SOme stuff happening');
+          const filePath = path.join(directoryPath, file); // Full path to the file
+          fs.unlinkSync(filePath);
         }
-        console.log(creationTime);
         console.log(file);
       });
     }

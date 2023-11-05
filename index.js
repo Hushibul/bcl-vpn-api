@@ -1,9 +1,3 @@
-// import dotenv from 'dotenv';
-// import express from 'express';
-
-// import errorHandler from './middlewares/errorHandler.js';
-// import Routes from './routes/router.js';
-
 const dotenv = require('dotenv');
 const express = require('express');
 

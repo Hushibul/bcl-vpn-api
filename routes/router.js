@@ -1,8 +1,3 @@
-// import { Router } from 'express';
-
-// import { deleteFile, uploadFile } from '../controllers/controller.js';
-
-// import upload from '../middlewares/multer.js';
 const express = require('express');
 
 const upload = require('../middlewares/multer');
@@ -13,8 +8,6 @@ const router = express.Router();
 
 router.post('/upload', upload.single('avatar'), uploadFile);
 
-router.delete('/deleteFile', deleteFile);
+router.post('/delete', deleteFile);
 
 module.exports = router;
-
-// export default router;
