@@ -13,30 +13,7 @@ const uploadFile = async (req, res, next) => {
 
 const deleteFile = async (req, res, next) => {
   try {
-    const command = `
-       absolutePath="$(pwd)/uploads"
-       if [ ! -d "$absolutePath" ]; then
-       mkdir -p "$absolutePath"
-       fi  
-       numberOfDeletedFile=0
-        
-        for file in "$absolutePath"/*; do
-          if [ -f "$file" ]; then
-            #fileCreateTime=$(stat -f "%B" "$file")
-            fileCreateTime=$(stat -c %Y "$file")
-            curTime=$(date +%s)
-            timeDiffInMinutes=$(( (curTime - fileCreateTime) / 60 ))
-            
-            if [ $timeDiffInMinutes -le 30 ]; then
-             if rm "$file"; then
-             ((numberOfDeletedFile++))
-              fi
-            fi
-          fi
-        done
-        
-        echo "Deleted $numberOfDeletedFile files."
-        `;
+    const command = `find $(pwd)/uploads -type f -mmin +1 -delete`;
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.log(`Error executing the command: ${error.message}`);
