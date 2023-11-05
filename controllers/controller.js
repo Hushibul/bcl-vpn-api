@@ -3,9 +3,10 @@ const { exec } = require('child_process');
 const command = 'find ../uploads -type f -mmin +5 -delete';
 
 const uploadFile = async (req, res, next) => {
-  res.status(200).json({ success: true });
+  res.render('index', { message: 'File Uploaded Successfully' });
   try {
   } catch (err) {
+    res.rend('index', { message: 'Could not upload the file' });
     next(err);
   }
 };
@@ -24,6 +25,8 @@ const deleteFile = async (req, res, next) => {
       console.log(`Command output: ${stdout}`);
       // res.status(200).json({ success: true, output: stdout });
     });
+
+    // readAllFiles();
   } catch (err) {
     next(err);
   }

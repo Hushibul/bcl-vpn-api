@@ -16,24 +16,29 @@
     ></script>
     <title>EJS Template</title>
   </head>
-  <body>
-    <h1 class="text-center">Upload File with Multer</h1>
+  <body class="mx-4">
+    <h1 class="text-center">BCL VPN</h1>
 
-    <form
-      action="/api/upload"
-      class="mx-4"
-      enctype="multipart/form-data"
-      method="post"
-    >
+    <% if(typeof message !== 'undefined'){ %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong><%= message %></strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    <% } %>
+
+    <form action="/api/upload" enctype="multipart/form-data" method="post">
       <input name="avatar" class="form-control mt-3" type="file" />
 
       <button class="btn btn-primary mt-3" type="submit">Submit</button>
     </form>
 
     <form action="/api/delete" method="post">
-      <button class="btn btn-primary mt-3 mx-4" type="submit">
-        Delete All
-      </button>
+      <button class="btn btn-primary mt-3" type="submit">Delete All</button>
     </form>
   </body>
 </html>
