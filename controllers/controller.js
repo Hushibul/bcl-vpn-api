@@ -14,8 +14,7 @@ const uploadFile = async (req, res, next) => {
 const deleteFile = async (req, res, next) => {
   try {
     const command = `
-        parentDirectory=$(dirname "$(pwd)")
-        absolutePath="$parentDirectory/uploads"
+        absolutePath="$(pwd)/uploads"
         numberOfDeletedFile=0
         
         for file in "$absolutePath"/*; do
