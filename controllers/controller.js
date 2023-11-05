@@ -1,12 +1,12 @@
 // const { readAllFiles } = require('../utils/utils');
-const { exec } = require('child_process');
+const { exec } = require("child_process");
 // const command = 'find ../uploads -type f -mmin +5 -delete';
 
 const uploadFile = async (req, res, next) => {
-  res.render('index', { message: 'File Uploaded Successfully' });
+  res.render("index", { message: "File Uploaded Successfully" });
   try {
   } catch (err) {
-    res.rend('index', { message: 'Could not upload the file' });
+    res.rend("index", { message: "Could not upload the file" });
     next(err);
   }
 };
@@ -14,8 +14,11 @@ const uploadFile = async (req, res, next) => {
 const deleteFile = async (req, res, next) => {
   try {
     const command = `
-        absolutePath="$(pwd)/uploads"
-        numberOfDeletedFile=0
+       absolutePath="$(pwd)/uploads"
+       if [ ! -d "$absolutePath" ]; then
+       mkdir -p "$absolutePath"
+       fi  
+       numberOfDeletedFile=0
         
         for file in "$absolutePath"/*; do
           if [ -f "$file" ]; then
@@ -52,4 +55,4 @@ const deleteFile = async (req, res, next) => {
   }
 };
 
-module.exports = { uploadFile, deleteFile};
+module.exports = { uploadFile, deleteFile };
