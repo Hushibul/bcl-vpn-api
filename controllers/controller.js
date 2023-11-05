@@ -13,7 +13,7 @@ const uploadFile = async (req, res, next) => {
 
 const deleteFile = async (req, res, next) => {
   try {
-    const command = `find $(pwd)/uploads -type f -mmin +1 -delete`;
+    const command = `find $(pwd)/uploads -type f -mmin +15 -delete`;
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.log(`Error executing the command: ${error.message}`);
